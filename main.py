@@ -18,7 +18,29 @@ class Ball:
         self.change_x = 0
         self.change_y = 0
  
- 
+ class Paddle(games.Sprite):
+
+    image=games.load_image("paddle.bmp")
+
+    def __init__(self, x=10):
+        super(Paddle, self).__init__(image=Paddle.image,
+                                    y=games.mouse.y,
+                                    left=10)
+        self.score=games.Text(value=0, size=25, top=5, right=games.screen.width - 10)
+        games.screen.add(self.score)
+
+    def update(self):
+        self.y=games.mouse.y
+        if self.top<0:
+            self.top=0
+        if self.bottom>games.screen.height:
+            self.bottom=games.screen.height
+        self.check_collide()
+
+    def check_collide(self):
+        for ball in self.overlapping_sprites:
+            self.score.value+=1
+            ball.handle_collide()
 def make_ball():
     """
     Function to make a new, random ball.
@@ -27,7 +49,6 @@ def make_ball():
     ball.x = random.randrange(BALL_SIZE, SCREEN_WIDTH - BALL_SIZE)
     ball.y = random.randrange(BALL_SIZE, SCREEN_HEIGHT - BALL_SIZE)
  
-    # Speed and direction of rectangle
     ball.change_x = random.randrange(-2, 3)
     ball.change_y = random.randrange(-2, 3)
  
@@ -40,16 +61,13 @@ def main():
     """
     pygame.init()
  
-    # Set the height and width of the screen
     size = [SCREEN_WIDTH, SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
  
     pygame.display.set_caption("Bouncing Balls")
  
-    # Loop until the user clicks the close button.
     done = False
  
-    # Used to manage how fast the screen updates
     clock = pygame.time.Clock()
  
     ball_list = []
@@ -57,53 +75,39 @@ def main():
     ball = make_ball()
     ball_list.append(ball)
  
-    # -------- Main Program Loop -----------
     while not done:
-        # --- Event Processing
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
             elif event.type == pygame.KEYDOWN:
-                # Space bar! Spawn a new ball.
+
                 if event.key == pygame.K_SPACE:
                     ball = make_ball()
                     ball_list.append(ball)
  
-        # --- Logic
-        for ball in ball_list:
-            # Move the ball's center
+        for ball in ball_l
             ball.x += ball.change_x
             ball.y += ball.change_y
- 
-            # Bounce the ball if needed
             if ball.y > SCREEN_HEIGHT - BALL_SIZE or ball.y < BALL_SIZE:
                 ball.change_y *= -1
             if ball.x > SCREEN_WIDTH - BALL_SIZE or ball.x < BALL_SIZE:
                 ball.change_x *= -1
  
-        # --- Drawing
-        # Set the screen background
         screen.fill(BLACK)
  
-        # Draw the balls
+      
         for ball in ball_list:
             pygame.draw.circle(screen, WHITE, [ball.x, ball.y], BALL_SIZE)
  
-        # --- Wrap-up
-        # Limit to 60 frames per second
+        
         clock.tick(60)
- 
-        # Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
- 
-    # Close everything down
     pygame.quit()
  
 if __name__ == "__main__":
     main()
- def main(): 
-   pygame.display.set_caption('Pong')
-	 screen = pygame.display.set_mode((WIN_W, WIN_H), pygame.SRCALPHA)
+def main()
+pygame.display.set_caption('Pong') screen = pygame.display.set_mode((WIN_W, WIN_H), pygame.SRCALPHA)
 	
 	paddle_width = 15
 	paddle_height = 100
@@ -120,6 +124,3 @@ if __name__ == "__main__":
 		clock.tick
 		pygame.display.flip()	
 
-
-
-#http://programarcadegames.com/python_examples/f.php?file=bouncing_balls 
