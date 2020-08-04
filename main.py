@@ -1,5 +1,7 @@
 import pygame
 import random
+import os
+
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
  
@@ -7,6 +9,27 @@ SCREEN_WIDTH = 700
 SCREEN_HEIGHT = 500
 BALL_SIZE = 25
  
+img_path = os.path.join('Paddle.png')
+
+class Paddle(object):
+  def __init__(self)
+   pygame.sprite.Sprite.__int__(self)
+   Paddle.image = pygame.imagel.load("Paddle.png")
+   self.image = Paddle.image
+   self.imagle = pygame.transform.scale(self,imagle,(15,100))
+   self.x = 15
+   self.y = 100
+   self.hitbox = (self.x self.y)
+
+  def draw(self, surface):
+    surface.blit(self.image, (self.x, self,y))
+
+  def movement(self):
+    key = pygame.key.get_pressed()
+    if key[pygame.K_DOWN]
+     self.y += 1
+    if key[pygame.K_UP]:
+      self.y -= 1
 class Ball:
     """
     Class to keep track of a ball's location and vector.
@@ -16,30 +39,6 @@ class Ball:
         self.y = 0
         self.change_x = 0
         self.change_y = 0
- 
- class Paddle(games.Sprite):
-
-    image=games.load_image("paddle.bmp")
-
-    def __init__(self, x=10):
-        super(Paddle, self).__init__(image=Paddle.image,
-                                    y=games.mouse.y,
-                                    left=10)
-        self.score=games.Text(value=0, size=25, top=5, right=games.screen.width - 10)
-        games.screen.add(self.score)
-
-    def update(self):
-        self.y=games.mouse.y
-        if self.top<0:
-            self.top=0
-        if self.bottom>games.screen.height:
-            self.bottom=games.screen.height
-        self.check_collide()
-
-    def check_collide(self):
-        for ball in self.overlapping_sprites:
-            self.score.value+=1
-            ball.handle_collide()
 def make_ball():
     """
     Function to make a new, random ball.
@@ -102,7 +101,7 @@ def main():
         clock.tick(60)
         pygame.display.flip()
     pygame.quit()
- 
+
 if __name__ == "__main__":
     main()
 def main()
@@ -112,7 +111,8 @@ pygame.display.set_caption('Pong') screen = pygame.display.set_mode((WIN_W, WIN_
 	paddle_height = 100
 	
 	paddle = pygame.Surface((paddle_width, paddle_height))
-	
+ self.image = Paddle.image
+
 	clock = pygame.time.Clock()
 	play = True
 	screen.fill(WHITE)
