@@ -7,7 +7,6 @@ SCREEN_WIDTH = 700
 SCREEN_HEIGHT = 500
 BALL_SIZE = 25
  
- 
 class Ball:
     """
     Class to keep track of a ball's location and vector.
